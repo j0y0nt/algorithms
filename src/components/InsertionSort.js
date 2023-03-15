@@ -1,4 +1,11 @@
 import {useState} from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 
 function InsertionSort() {
     // Original array
@@ -84,22 +91,63 @@ function InsertionSort() {
     }
     
     return (
-	    <div style={{flexDirection: 'column'}}>
-	    <label style={{margin: '5px'}}> Enter Comma separated values </label>
-	    <input style={{margin: '5px', height: 20, width: 400}} type="text" defaultValue={arr} onChange={e => updateArray(e) }/>
+	    <div style={{flexDirection: 'column',
+			 background: 'aliceblue',
+			 padding: '10px'}}>
+	    <Box sx={{paddingY: '10px'}}>
+	    <Typography variant="h6" gutterBottom>
+            How array changes while sorting ?
+	    </Typography>
+	    </Box>
+
+	{/* Start: Textfield for Array */}
+	    <Box sx={{
+		width: 500,
+		maxWidth: '100%',
+	    }}
+	    >
+	    <TextField fullWidth label="Enter comma seperated value here"
+	id="arrayField" size="small" defaultValue={arr} onChange={e => updateArray(e) }
+	    />
+	    </Box>
+	    {/* End: Textfield for Array */}
+	
 	    { isError ? (<label style={{margin: '5px'}}> {errorMsg} </label>) : ''}
-	    <div style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-	    <label> Input Array: </label>
-	    <label> {arr.toString() } </label>
+
+	    <div>
+	    <Box sx={{ margin: 1, width: 500, justifyContent: 'flex-start'}}>
+	    <Typography variant="body1" gutterBottom>
+            Input Array: {arr.toString() }
+      </Typography>
+	    </Box>
+	    
+	</div>
+	
+	    <div>
+
+	    <div>
+	      <Typography variant="subtitle2" gutterBottom>
+            Select Algorithm
+      </Typography>
 	    </div>
 	    <div>
+	    <FormControl sx={{ m: 1, minWidth: 240 }} size="small" >
+	    <Select labelId="demo-select-small" id="demo-select-small" value={algo}
+        label="Age"
+        onChange={e => selectAlgorithm(e)}
+	displayEmpty
+	    >
+            <MenuItem value="">
+            <em>None</em>
+            </MenuItem>
+            <MenuItem value="INSERTION">Insertion Sort</MenuItem>
+	    </Select>
+	    </FormControl>
+	    </div>
+	    {/* Sort Button */}
 	    <div>
-	    <select name="algorithm" defaultValue="NONE" onChange={e => selectAlgorithm(e)}>
-	    <option value="NONE" >Select Algorithm</option>
-	    <option value="INSERTION">Insertion Sort</option>
-	    </select>
-	</div>
-	    <button style={{height: '30px', width: '100px', border: '0px', borderRadius: '4px', margin: '10px'}} onClick={e => sort()}>Sort</button>
+	    <Button variant="outlined" onClick={e => sort()}>Sort</Button>
+	    </div>
 	    </div>
 	    <div style={{flexDirection: 'row', justifyContent: 'space-around', width: '100%'}}>
 	    <label> Sorted Array: </label>
