@@ -9,6 +9,7 @@ function InsertionSort() {
     const [sortSteps, setSortedSteps] =  useState([[]]);
     // Final sorted array
     const [sortedArr, setSortedArr] = useState([]);
+    const [algo, setAlgo] = useState('');
     
     function updateArray(e) {
 	if(e.target.value !== '') {
@@ -66,9 +67,22 @@ function InsertionSort() {
     
     function sort() {
 	if(arr.length !== 0) {
-	    InsertionSort(arr);
+
+	    switch(algo) {
+	    case 'INSERTION':
+		InsertionSort(arr);
+		break;
+	    default:
+		console.log('Please select an algorithm.');
+	    }
 	}
     }
+
+    function selectAlgorithm(e) {
+	console.log(e.target.value);
+	setAlgo(algo => e.target.value);
+    }
+    
     return (
 	    <div style={{flexDirection: 'column'}}>
 	    <label style={{margin: '5px'}}> Enter Comma separated values </label>
@@ -79,6 +93,12 @@ function InsertionSort() {
 	    <label> {arr.toString() } </label>
 	    </div>
 	    <div>
+	    <div>
+	    <select name="algorithm" defaultValue="NONE" onChange={e => selectAlgorithm(e)}>
+	    <option value="NONE" >Select Algorithm</option>
+	    <option value="INSERTION">Insertion Sort</option>
+	    </select>
+	</div>
 	    <button style={{height: '30px', width: '100px', border: '0px', borderRadius: '4px', margin: '10px'}} onClick={e => sort()}>Sort</button>
 	    </div>
 	    <div style={{flexDirection: 'row', justifyContent: 'space-around', width: '100%'}}>
